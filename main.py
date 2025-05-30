@@ -64,3 +64,11 @@ elif nav == "Contact Me":
     - 🌐 LinkedIn: [linkedin.com/in/estherluo](https://linkedin.com/in/estherluo)
     - 📝 Blog: [move-with-power.substack.com](https://move-with-power.substack.com)
     """)
+
+with st.form(key='contact_form'):
+    name = st.text_input("Your Name")
+    email = st.text_input("Your Email")
+    message = st.text_area("Your Message")
+    submitted = st.form_submit_button("Submit")
+    if submitted:
+        st.success("Message sent ✅")
