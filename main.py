@@ -2,7 +2,7 @@ import streamlit as st
 import smtplib
 from email.message import EmailMessage
 
-# --- CONFIG ---
+# --- CONFIG --- #
 st.set_page_config(page_title="Esther Luo | Resume", layout="wide")
 
 EMAIL_ADDRESS = st.secrets["EMAIL_USER"]
