@@ -1,7 +1,25 @@
 import streamlit as st
+import smtplib
+from email.message import EmailMessage
 
 # --- CONFIG ---
 st.set_page_config(page_title="Esther Luo | Resume", layout="wide")
+
+EMAIL_ADDRESS = st.secrets["EMAIL_USER"]
+EMAIL_PASSWORD = st.secrets["EMAIL_PASS"]
+
+def send_email(name, user_email, user_message):
+    msg = EmailMessage()
+    msg["Subject"] = "Message received from portfolio"
+    msg["From"] = EMAIL_ADDRESS
+    msg["To"] = EMAIL_ADDRESS
+    msg["Reply-To"] = user_email
+
+    msg.set_content(f"{name} has sent {user_message}")
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+        smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        smtp.send_message(msg)
 
 # --- SIDEBAR ---
 st.sidebar.title("Navigation")
@@ -71,4 +89,5 @@ with st.form(key='contact_form'):
     message = st.text_area("Your Message")
     submitted = st.form_submit_button("Submit")
     if submitted:
+        send_email(name,email,message)
         st.success("Message sent ✅")
